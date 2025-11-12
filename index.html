@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TenTempieLand — Servidor Minecraft</title>
-
   <style>
     :root {
       --bg: #0a0d11;
@@ -17,20 +16,21 @@
       --max-width: 900px;
     }
 
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin:0; padding:0; }
     body {
-      margin: 0;
       background: var(--bg);
       color: var(--text);
       font-family: "Segoe UI", Roboto, sans-serif;
       display: flex;
       justify-content: center;
       padding: 20px;
+      overflow-x: hidden;
     }
 
     .container {
       width: 100%;
       max-width: var(--max-width);
+      animation: fadeIn 1s ease forwards;
     }
 
     header {
@@ -41,26 +41,47 @@
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
+      position: relative;
+      transition: all 0.3s ease;
     }
 
     header img {
       height: 60px;
+      transition: transform 0.3s ease;
     }
+    header img:hover { transform: scale(1.05); }
 
     nav {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
+      transition: max-height 0.3s ease;
     }
 
     nav a {
       color: var(--muted);
       text-decoration: none;
       font-weight: bold;
-      transition: color 0.2s;
+      transition: color 0.2s, transform 0.2s;
     }
     nav a:hover {
       color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+
+    .menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background: var(--muted);
+      border-radius: 2px;
+      transition: all 0.3s ease;
     }
 
     section {
@@ -69,6 +90,9 @@
       border-radius: var(--radius);
       padding: 16px;
       box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: slideUp 0.8s forwards;
     }
 
     h2 {
@@ -84,7 +108,9 @@
       margin: 4px;
       font-size: 14px;
       color: var(--muted);
+      transition: transform 0.2s ease;
     }
+    .users span:hover { transform: scale(1.05); }
 
     .roles div {
       background: rgba(255,255,255,0.05);
@@ -92,7 +118,9 @@
       margin: 8px 0;
       padding: 10px;
       border-radius: 6px;
+      transition: transform 0.2s ease;
     }
+    .roles div:hover { transform: translateX(5px); }
 
     footer {
       margin-top: 16px;
@@ -107,7 +135,9 @@
       border-radius: 6px;
       padding: 10px;
       margin-top: 10px;
+      transition: transform 0.2s ease;
     }
+    .post:hover { transform: scale(1.02); }
 
     .countdown {
       font-family: monospace;
@@ -116,9 +146,26 @@
       margin-top: 8px;
     }
 
-    @media (max-width:600px) {
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { opacity:0; transform: translateY(20px);}
+      to { opacity:1; transform: translateY(0);}
+    }
+
+    @media (max-width: 600px) {
       header { flex-direction: column; align-items: flex-start; }
-      nav { justify-content: center; }
+      .menu-toggle { display: flex; }
+      nav {
+        flex-direction: column;
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+      }
+      nav.open { max-height: 500px; } /* Ajusta según cantidad de enlaces */
     }
   </style>
 </head>
@@ -126,7 +173,12 @@
   <div class="container">
     <header>
       <img src="logo_tentem.png" alt="Logo TenTempieLand" onerror="this.style.opacity='0.5'" />
-      <nav>
+      <div class="menu-toggle" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <nav id="nav-menu">
         <a href="#intro">Inicio</a>
         <a href="#usuarios">Usuarios</a>
         <a href="#historia">Historia</a>
@@ -138,19 +190,17 @@
 
     <section id="intro">
       <h2>Bienvenido a TenTempieLand</h2>
-      <p>Servidor de Minecraft donde la diversión, la comunidad y la creatividad se unen. Participa en eventos, conoce jugadores y forma parte de nuestra historia.</p>
+      <p>Servidor de Minecraft donde la diversión, la comunidad y la creatividad se unen.</p>
     </section>
 
     <section id="usuarios" class="users">
       <h2>Usuarios del servidor</h2>
       <span>En proceso ...</span>
-      
     </section>
 
     <section id="historia">
       <h2>Historia</h2>
-      <p>El servidor fue fundado el 27 de agosto de 2022. Desde entonces, TenTempieLand ha evolucionado a través de distintos sistemas de gobierno y eventos comunitarios.  
-      Nuestra historia está llena de creatividad, alianzas y momentos memorables.</p>
+      <p>Fundado el 27 de agosto de 2022. Nuestra historia está llena de creatividad y momentos memorables.</p>
     </section>
 
     <section id="normas">
@@ -159,7 +209,7 @@
         <li>Respeta a todos los jugadores.</li>
         <li>No destruyas ni robes propiedad ajena.</li>
         <li>No matar sin consentimiento o contexto de evento.</li>
-        <li>Evita el uso de trampas o exploits.</li>
+        <li>Evita trampas o exploits.</li>
         <li>Sigue el sistema judicial del servidor.</li>
       </ul>
     </section>
@@ -167,10 +217,10 @@
     <section id="roles" class="roles">
       <h2>Roles y Altos Cargos</h2>
       <div><strong>Presidente:</strong> Dirige el gobierno y nombra ministros.</div>
-      <div><strong>Vicepresidente:</strong> Apoya al presidente y asume funciones delegadas.</div>
-      <div><strong>Juez:</strong> Aplica las normas y dicta sanciones.</div>
-      <div><strong>Rey:</strong> Figura simbólica con poder de veto.</div>
-      <div><strong>Ministros:</strong> Encargados de áreas específicas (Economía, Seguridad, Cultura, etc.).</div>
+      <div><strong>Vicepresidente:</strong> Apoya al presidente.</div>
+      <div><strong>Juez:</strong> Aplica normas y dicta sanciones.</div>
+      <div><strong>Rey:</strong> Figura simbólica con veto.</div>
+      <div><strong>Ministros:</strong> Encargados de áreas específicas.</div>
     </section>
 
     <section id="blog">
@@ -185,6 +235,11 @@
   </div>
 
   <script>
+    // Menú responsive
+    const toggle = document.getElementById("menu-toggle");
+    const menu = document.getElementById("nav-menu");
+    toggle.addEventListener("click", ()=> menu.classList.toggle("open"));
+
     // Contador hasta el próximo lunes (Europe/Madrid)
     function getMadridNow(){
       try {
