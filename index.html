@@ -102,7 +102,6 @@
       padding: 10px;
     }
 
-    /* Blog */
     .post {
       background: rgba(255,255,255,0.03);
       border-radius: 6px;
@@ -126,7 +125,6 @@
 <body>
   <div class="container">
     <header>
-      <!-- Coloca aquí tu logo -->
       <img src="logo_tentem.png" alt="Logo TenTempieLand" onerror="this.style.opacity='0.5'" />
       <nav>
         <a href="#intro">Inicio</a>
@@ -145,7 +143,6 @@
 
     <section id="usuarios" class="users">
       <h2>Usuarios del servidor</h2>
-      <p>Lista estática de ejemplo (puedes editarla manualmente):</p>
       <span>Erika</span>
       <span>Máximo</span>
       <span>Omar</span>
@@ -181,7 +178,6 @@
 
     <section id="blog">
       <h2>Blog semanal</h2>
-      <p>Este apartado se actualizará automáticamente cada lunes. El contenido se carga desde <code>blog.json</code>.</p>
       <div id="countdown" class="countdown">Calculando...</div>
       <div id="posts"></div>
     </section>
@@ -202,7 +198,7 @@
 
     function nextMonday(){
       const now = getMadridNow();
-      const day = now.getDay(); // domingo=0, lunes=1
+      const day = now.getDay();
       const daysUntil = (8 - day) % 7 || 7;
       const next = new Date(now);
       next.setDate(now.getDate() + daysUntil);
