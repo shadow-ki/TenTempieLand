@@ -1,444 +1,208 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>TenTempieLand — Comunidad Minecraft</title>
-
-  <!--
-    TenTempieLand — Página generada por ChatGPT (Lyra).
-    Archivos de referencia (subidos por el usuario):
-      - Historia: "Historia de Tentempiéland.pdf"
-      - Normas: "NORMAS DE TENTEMPIELAND.pdf"
-      - Roles/Altos Cargos: "Transición.pdf"
-    Instrucciones:
-      - Coloca tu logo con nombre EXACTO: logo_tentem.png (misma carpeta que este index.html).
-      - Blog: actualízalo manualmente cada Lunes editando el bloque <!-- BLOQUE DE POSTS --> dentro de la sección "Blog semanal".
-      - Usuarios en línea: esta versión usa un contador estático de ejemplo. Más adelante puedes integrar una API siguiendo el snippet dentro del archivo (comentado).
-  -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TenTempieLand — Servidor Minecraft</title>
 
   <style>
-    /* Variables - tema gamer (oscuro/neón) */
-    :root{
+    :root {
       --bg: #0a0d11;
-      --panel: #0f1720;
-      --muted: #9fb0be;
+      --panel: #111827;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
       --accent: #7c4dff;
       --accent2: #06d6a0;
-      --glass: rgba(255,255,255,0.03);
-      --radius:14px;
-      --max-width:1100px;
-      --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
+      --radius: 10px;
+      --max-width: 900px;
     }
 
-    /* Reset y layout */
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:var(--sans);
-      background:
-        radial-gradient(900px 400px at 10% 10%, rgba(124,77,255,0.06), transparent 10%),
-        linear-gradient(180deg, rgba(0,0,0,0.6), transparent 40%),
-        var(--bg);
-      color:#e6eef6;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.5;
-      padding:24px;
-      display:flex;
-      justify-content:center;
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", Roboto, sans-serif;
+      display: flex;
+      justify-content: center;
+      padding: 20px;
     }
 
-    .wrap{
-      width:100%;
-      max-width:var(--max-width);
-      margin:0 auto;
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
     }
 
-    header{
-      display:flex;
-      gap:16px;
-      align-items:center;
-      padding:14px;
-      border-radius:12px;
-      background: linear-gradient(90deg, rgba(255,255,255,0.01), rgba(124,77,255,0.01));
-      box-shadow: 0 8px 28px rgba(0,0,0,0.5);
-      position: sticky;
-      top:16px;
-      z-index:20;
+    header {
+      background: #151b26;
+      border-radius: var(--radius);
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
     }
 
-    .logo{
-      width:64px;height:64px;border-radius:10px;overflow:hidden;
-      display:flex;align-items:center;justify-content:center;
-      background:linear-gradient(135deg,rgba(255,255,255,0.02), rgba(124,77,255,0.03));
-      flex:0 0 64px;
+    header img {
+      height: 60px;
     }
-    .logo img{width:100%;height:100%;object-fit:contain;display:block}
 
-    header h1{margin:0;font-size:18px}
-    header p{margin:0;color:var(--muted);font-size:13px}
-
-    nav{margin-left:auto; display:flex; gap:8px; align-items:center; flex-wrap:wrap}
-    .nav-link{
-      color:var(--muted);
-      text-decoration:none;
-      padding:8px 12px;
-      border-radius:8px;
-      font-weight:700;
-      font-size:13px;
+    nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
     }
-    .nav-link:hover{background:rgba(124,77,255,0.06); color:var(--accent)}
 
-    /* Hero */
-    .hero{
-      margin-top:14px;
-      padding:24px;
-      border-radius:16px;
-      display:flex;
-      gap:18px;
-      align-items:center;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      overflow:hidden;
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.2s;
     }
-    .hero .intro{flex:1}
-    .hero h2{margin:0 0 8px 0;font-size:26px}
-    .hero p{margin:0;color:var(--muted)}
-    .cta{display:flex;gap:10px;margin-top:12px}
-    .btn{
-      background: linear-gradient(90deg,var(--accent), #a86bff);
-      padding:10px 14px;border-radius:12px;color:white;text-decoration:none;font-weight:800;
-      box-shadow: 0 8px 24px rgba(124,77,255,0.14);
+    nav a:hover {
+      color: var(--accent);
     }
-    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.04); color:var(--muted)}
 
-    .hero .meta{min-width:220px;text-align:right;color:var(--muted)}
-    .hero .meta strong{display:block;font-size:22px}
-
-    main{display:grid;gap:16px;margin-top:16px}
-
-    /* Panel base */
-    .panel{
-      padding:16px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.015));
-      box-shadow: 0 8px 30px rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.02);
+    section {
+      background: var(--panel);
+      margin-top: 16px;
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
     }
-    .panel h3{margin:0 0 10px 0}
 
-    /* Timeline */
-    .timeline{display:flex;flex-direction:column;gap:12px}
-    .event{display:flex;gap:12px;align-items:flex-start;transform:translateY(12px);opacity:0;transition:all .6s cubic-bezier(.2,.9,.2,1)}
-    .event.visible{transform:none;opacity:1}
-    .dot{width:12px;height:12px;border-radius:50%;background:linear-gradient(180deg,var(--accent),var(--accent2));box-shadow:0 8px 24px rgba(124,77,255,0.12)}
-    .event .body{background:rgba(255,255,255,0.02);padding:10px;border-radius:10px}
+    h2 {
+      color: var(--accent);
+      margin-top: 0;
+    }
 
-    /* Cards */
-    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-    .card{padding:12px;border-radius:12px;background:linear-gradient(180deg, rgba(124,77,255,0.03), transparent);border:1px solid rgba(124,77,255,0.05);transition:transform .18s ease, box-shadow .18s ease}
-    .card:hover{transform:translateY(-6px); box-shadow: 0 14px 40px rgba(0,0,0,0.5)}
+    .users span {
+      display: inline-block;
+      background: rgba(255,255,255,0.05);
+      border-radius: 999px;
+      padding: 6px 12px;
+      margin: 4px;
+      font-size: 14px;
+      color: var(--muted);
+    }
 
-    /* Rules list */
-    .rules ol{padding-left:18px;color:var(--muted)}
-    .rules li{margin:10px 0;padding:10px;border-radius:10px}
-    .important{background:linear-gradient(90deg, rgba(124,77,255,0.06), rgba(6,214,160,0.03)); border-left:4px solid var(--accent)}
+    .roles div {
+      background: rgba(255,255,255,0.05);
+      border-left: 4px solid var(--accent);
+      margin: 8px 0;
+      padding: 10px;
+      border-radius: 6px;
+    }
 
-    /* Users */
-    .users .user-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-    .user{padding:8px 10px;background:rgba(255,255,255,0.02);border-radius:999px;color:var(--muted);font-weight:700}
+    footer {
+      margin-top: 16px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+      padding: 10px;
+    }
 
     /* Blog */
-    .countdown{font-family:var(--mono);font-size:16px;margin-top:6px}
-    .blog-list{display:flex;flex-direction:column;gap:12px;margin-top:12px}
-    .post{background:rgba(255,255,255,0.02);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.02)}
-
-    footer{margin-top:18px;padding:12px;border-radius:12px;background:linear-gradient(180deg, rgba(0,0,0,0.08), transparent);display:flex;justify-content:space-between;align-items:center;color:var(--muted);gap:12px}
-
-    /* Responsive adjustments */
-    @media (max-width:900px){
-      header{flex-direction:row;align-items:center;padding:12px}
-      .hero{flex-direction:column;align-items:flex-start}
-      .hero .meta{text-align:left}
-      .nav-link{padding:7px 9px;font-size:12px}
+    .post {
+      background: rgba(255,255,255,0.03);
+      border-radius: 6px;
+      padding: 10px;
+      margin-top: 10px;
     }
-    @media (prefers-reduced-motion:reduce){
-      .event{transition:none}
-      .card:hover{transform:none}
+
+    .countdown {
+      font-family: monospace;
+      font-size: 15px;
+      color: var(--accent2);
+      margin-top: 8px;
+    }
+
+    @media (max-width:600px) {
+      header { flex-direction: column; align-items: flex-start; }
+      nav { justify-content: center; }
     }
   </style>
 </head>
 <body>
-  <div class="wrap" id="top">
-    <header role="banner" aria-label="Cabecera TenTempieLand">
-      <div class="logo" title="Logo TenTempieLand">
-        <!-- Coloca tu logo en la misma carpeta y nómbralo exactamente logo_tentem.png -->
-        <img src="logo_tentem.png" alt="Logo TenTempieLand (coloca logo_tentem.png en la misma carpeta)" onerror="this.style.opacity=0.35; this.alt+=' (logo no encontrado)'" />
-      </div>
-      <div style="min-width:0">
-        <h1>TenTempieLand</h1>
-        <p class="muted">Servidor Minecraft — Comunidad, rol y eventos</p>
-      </div>
-
-      <nav role="navigation" aria-label="Navegación principal">
-        <a class="nav-link" href="#introduccion">Inicio</a>
-        <a class="nav-link" href="#usuarios">Usuarios</a>
-        <a class="nav-link" href="#historia">Historia</a>
-        <a class="nav-link" href="#normas">Normas</a>
-        <a class="nav-link" href="#roles">Roles</a>
-        <a class="nav-link" href="#blog">Blog</a>
+  <div class="container">
+    <header>
+      <!-- Coloca aquí tu logo -->
+      <img src="logo_tentem.png" alt="Logo TenTempieLand" onerror="this.style.opacity='0.5'" />
+      <nav>
+        <a href="#intro">Inicio</a>
+        <a href="#usuarios">Usuarios</a>
+        <a href="#historia">Historia</a>
+        <a href="#normas">Normas</a>
+        <a href="#roles">Roles</a>
+        <a href="#blog">Blog</a>
       </nav>
     </header>
 
-    <section class="hero panel" id="introduccion" aria-labelledby="intro-title">
-      <div class="intro">
-        <h2 id="intro-title">Bienvenido a TenTempieLand</h2>
-        <p>TenTempieLand es un servidor enfocado en la experiencia social, el rol y la participación activa. Organizamos eventos, mantenemos un sistema de cargos y cuidamos la convivencia entre jugadores.</p>
-        <div class="cta">
-          <a class="btn" href="#usuarios">Unirse al servidor</a>
-          <a class="btn ghost" href="#normas">Leer normas</a>
-        </div>
-      </div>
-
-      <div class="meta" aria-hidden="true">
-        <div class="muted">Jugadores online (ejemplo)</div>
-        <strong>12</strong>
-        <div class="muted" style="margin-top:8px;font-size:13px">Próxima actualización: Lunes 00:00 (Europe/Madrid)</div>
-      </div>
+    <section id="intro">
+      <h2>Bienvenido a TenTempieLand</h2>
+      <p>Servidor de Minecraft donde la diversión, la comunidad y la creatividad se unen. Participa en eventos, conoce jugadores y forma parte de nuestra historia.</p>
     </section>
 
-    <main>
-      <!-- USUARIOS -->
-      <section id="usuarios" class="panel" aria-labelledby="usuarios-title">
-        <h3 id="usuarios-title">Usuarios del servidor</h3>
-        <p class="muted">Panel informativo. Para conectar datos reales se necesitaría una API o WebSocket (este proyecto está pensado para funcionar estático sin backend).</p>
+    <section id="usuarios" class="users">
+      <h2>Usuarios del servidor</h2>
+      <p>Lista estática de ejemplo (puedes editarla manualmente):</p>
+      <span>Erika</span>
+      <span>Máximo</span>
+      <span>Omar</span>
+      <span>David</span>
+      <span>Maksym</span>
+    </section>
 
-        <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start">
-          <div style="min-width:220px">
-            <div style="font-weight:800">Jugadores online (ejemplo)</div>
-            <div class="user-list" aria-live="polite" id="sample-users">
-              <span class="user">Erika</span>
-              <span class="user">Máximo</span>
-              <span class="user">Omar</span>
-              <span class="user">David</span>
-              <span class="user">Maksym</span>
-            </div>
-          </div>
+    <section id="historia">
+      <h2>Historia</h2>
+      <p>El servidor fue fundado el 27 de agosto de 2022. Desde entonces, TenTempieLand ha evolucionado a través de distintos sistemas de gobierno y eventos comunitarios.  
+      Nuestra historia está llena de creatividad, alianzas y momentos memorables.</p>
+    </section>
 
-          <div style="flex:1">
-            <div style="font-weight:800">Integración futura</div>
-            <p class="muted">Si en algún momento quieres mostrar el número real de jugadores, sustituye el bloque estático por una llamada a tu API. Ejemplo (comentado):</p>
-            <pre style="background:rgba(255,255,255,0.02);padding:8px;border-radius:8px;font-family:var(--mono);font-size:13px;color:var(--muted)">
-// Ejemplo de fetch (no activo):
-// fetch('https://api.tentempieland.example/players')
-//  .then(res => res.json())
-//  .then(data => { document.querySelector('.meta strong').textContent = data.online; })
-            </pre>
-          </div>
-        </div>
-      </section>
+    <section id="normas">
+      <h2>Normas del servidor</h2>
+      <ul>
+        <li>Respeta a todos los jugadores.</li>
+        <li>No destruyas ni robes propiedad ajena.</li>
+        <li>No matar sin consentimiento o contexto de evento.</li>
+        <li>Evita el uso de trampas o exploits.</li>
+        <li>Sigue el sistema judicial del servidor.</li>
+      </ul>
+    </section>
 
-      <!-- HISTORIA -->
-      <section id="historia" class="panel" aria-labelledby="historia-title">
-        <h3 id="historia-title">Historia del servidor</h3>
-        <p class="muted">Resumen cronológico y eventos clave (extracto del documento de historia). Consulta el PDF original para el texto completo.</p>
+    <section id="roles" class="roles">
+      <h2>Roles y Altos Cargos</h2>
+      <div><strong>Presidente:</strong> Dirige el gobierno y nombra ministros.</div>
+      <div><strong>Vicepresidente:</strong> Apoya al presidente y asume funciones delegadas.</div>
+      <div><strong>Juez:</strong> Aplica las normas y dicta sanciones.</div>
+      <div><strong>Rey:</strong> Figura simbólica con poder de veto.</div>
+      <div><strong>Ministros:</strong> Encargados de áreas específicas (Economía, Seguridad, Cultura, etc.).</div>
+    </section>
 
-        <div class="timeline" id="timeline">
-          <div class="event">
-            <div class="dot" aria-hidden="true"></div>
-            <div class="body">
-              <div class="muted" style="font-family:var(--mono);font-size:13px">27 de agosto de 2022</div>
-              <div><strong>Fundación</strong> — Los fundadores crearon la comunidad y establecieron las primeras reglas y una ciudad inicial con elecciones internas.</div>
-            </div>
-          </div>
-
-          <div class="event">
-            <div class="dot"></div>
-            <div class="body">
-              <div class="muted" style="font-family:var(--mono);font-size:13px">Julio 2023</div>
-              <div><strong>Cambios políticos</strong> — Se alternaron sistemas de gobierno (monarquía y democracia), hubo elecciones y cambios de cargos que marcaron la evolución interna.</div>
-            </div>
-          </div>
-
-          <div class="event">
-            <div class="dot"></div>
-            <div class="body">
-              <div class="muted" style="font-family:var(--mono);font-size:13px">2023–2024</div>
-              <div><strong>Movimientos</strong> — Incorporaciones y salidas de jugadores, episodios judiciales y reformas internas que afectaron la estructura de gobierno.</div>
-            </div>
-          </div>
-
-          <div class="event">
-            <div class="dot"></div>
-            <div class="body">
-              <div class="muted" style="font-family:var(--mono);font-size:13px">Eventos notables</div>
-              <div>Juicios, fundación de nuevas colonias y la creación de títulos (por ejemplo ducados). También se realizaron eventos culturales y administrativos.</div>
-            </div>
-          </div>
-
-          <div class="event">
-            <div class="dot"></div>
-            <div class="body">
-              <div class="muted" style="font-family:var(--mono);font-size:13px">Resumen</div>
-              <div>El relato completo es más extenso; aquí se muestra un resumen respetuoso y apto para la web. Mantén el PDF para consulta detallada.</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- NORMAS -->
-      <section id="normas" class="panel rules" aria-labelledby="normas-title">
-        <h3 id="normas-title">Normas del servidor</h3>
-        <p class="muted">Se han incluido las normas principales extraídas del documento. Las normas completas y sanciones están en el PDF.</p>
-
-        <ol>
-          <li class="important">
-            <strong>Respeto y cumplimiento judicial:</strong> Las normas se aplican mediante el sistema judicial del servidor; el juez dispone sanciones y el presidente puede promover cambios.
-          </li>
-
-          <li><strong>No matar sin consentimiento:</strong> Evita matar a jugadores fuera de duelos o eventos explicitos; hay niveles de permisividad regulados por el sistema de "bromas".</li>
-
-          <li><strong>No robar/saquear:</strong> El saqueo de bases ajenas está prohibido salvo reglas del evento; se espera devolución y/o reparación si procede.</li>
-
-          <li><strong>Respeto a lo público:</strong> No destruir construcciones o recursos públicos. Las infracciones conllevan sanciones según gravedad.</li>
-
-          <li><strong>Prohibiciones generales:</strong> No está permitido el uso de exploits, petar el servidor, ni actividades que dañen la experiencia comunitaria.</li>
-
-          <li class="important"><strong>Niveles de bromas:</strong> Existe un sistema de niveles que regula qué bromas o acciones están permitidas según el historial del jugador.</li>
-        </ol>
-
-        <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
-          <a class="btn" href="#" onclick="alert('Descarga placeholder — sube NORMAS DE TENTEMPIELAND.pdf a tu hosting y actualiza este enlace.');return false">Descargar Normas (PDF)</a>
-          <a class="btn ghost" href="#historia">Volver a Historia</a>
-        </div>
-
-        <div style="margin-top:10px;color:var(--muted)">Documento original: NORMAS DE TENTEMPIELAND.pdf</div>
-      </section>
-
-      <!-- ROLES / ALTOS CARGOS -->
-      <section id="roles" class="panel" aria-labelledby="roles-title">
-        <h3 id="roles-title">Roles / Altos cargos</h3>
-        <p class="muted">Descripción de los principales cargos y sus responsabilidades (resumen del documento de transición).</p>
-
-        <div class="cards">
-          <article class="card" aria-labelledby="role-presidente">
-            <h4 id="role-presidente">Presidente</h4>
-            <p class="muted">Líder electo. Encargado del gobierno ejecutivo, propone leyes y nombra ministros.</p>
-            <ul>
-              <li>Nombrar/cesar ministros (con justificación).</li>
-              <li>Presentar políticas y coordinar el gobierno.</li>
-              <li>Responsabilidad ante la comunidad y elecciones.</li>
-            </ul>
-          </article>
-
-          <article class="card" aria-labelledby="role-vice">
-            <h4 id="role-vice">Vicepresidente</h4>
-            <p class="muted">Apoya al presidente y puede reemplazarle en ausencia. Tiene funciones delegadas según el reglamento.</p>
-          </article>
-
-          <article class="card" aria-labelledby="role-lider-opos">
-            <h4 id="role-lider-opos">Líder de la Oposición</h4>
-            <p class="muted">Representa a la oposición, propone mociones y actúa como contrapeso político.</p>
-          </article>
-
-          <article class="card" aria-labelledby="role-juez">
-            <h4 id="role-juez">Juez</h4>
-            <p class="muted">Encargado de aplicar las normas y presidir procedimientos disciplinarios.</p>
-          </article>
-
-          <article class="card" aria-labelledby="role-rey">
-            <h4 id="role-rey">Monarquía / Rey</h4>
-            <p class="muted">En formatos con monarquía, el rey ejerce funciones ceremoniales o de veto según las reglas internas.</p>
-          </article>
-
-          <article class="card" aria-labelledby="role-ministro">
-            <h4 id="role-ministro">Ministros</h4>
-            <p class="muted">Responsables de áreas específicas (economía, seguridad, cultura). Nombrados por el presidente.</p>
-          </article>
-        </div>
-
-        <div style="margin-top:12px;color:var(--muted)">Fuente: Transición.pdf</div>
-      </section>
-
-      <!-- BLOG SEMANAL (MANUAL) -->
-      <section id="blog" class="panel" aria-labelledby="blog-title">
-        <h3 id="blog-title">Blog semanal</h3>
-        <p class="muted">Se actualizará **manualmente** cada lunes. Abajo tienes un contador hasta el próximo lunes 00:00 (Europe/Madrid) y la plantilla donde pegar la entrada semanal.</p>
-
-        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
-          <div>
-            <div style="font-weight:800">Cuenta atrás hasta el próximo lunes</div>
-            <div class="countdown" id="countdown" aria-live="polite">Calculando...</div>
-          </div>
-
-          <div style="flex:1">
-            <div style="font-weight:800">Estado del blog</div>
-            <div class="muted" id="blog-status">Sin entradas — actualiza cada Lunes</div>
-          </div>
-        </div>
-
-        <!-- BLOQUE DE POSTS -->
-        <div class="blog-list" id="posts-area" style="margin-top:12px">
-          <!--
-            PLANTILLA (manual): cada lunes pega/crea un bloque como el siguiente,
-            y actualiza el contenido/título/fecha.
-            Ejemplo de bloque manual (descomenta y edita):
-
-            <div class="post">
-              <div style="display:flex;justify-content:space-between;align-items:center">
-                <strong>Semana 45 — Resumen de la comunidad</strong>
-                <span class="muted" style="font-size:13px">Lunes, 17 de noviembre de 2025</span>
-              </div>
-              <p style="margin-top:8px">Resumen breve de los eventos de la semana: torneo PvP, reforma de la plaza, entrada de 3 nuevos miembros, juicio resuelto.</p>
-            </div>
-
-            Mantén varios bloques si quieres historiales semanales.
-          -->
-          <div class="post">
-            <div style="display:flex;justify-content:space-between;align-items:center">
-              <strong>— Sin entradas —</strong>
-              <span class="muted" style="font-size:13px">Próxima actualización: Lunes 00:00</span>
-            </div>
-            <p class="muted" style="margin-top:8px">Añade la entrada semanal aquí cada lunes pegando un bloque &lt;div class="post"&gt;...&lt;/div&gt;.</p>
-          </div>
-        </div>
-
-        <div style="margin-top:12px">
-          <strong>Instrucciones para actualizar (manual, cada lunes):</strong>
-          <ol class="muted">
-            <li>Abre <code>index.html</code> en tu editor de texto.</li>
-            <li>Localiza el comentario <code>&lt;!-- BLOQUE DE POSTS --&gt;</code> en la sección "Blog semanal".</li>
-            <li>Pega un nuevo &lt;div class="post"&gt; con título, fecha y contenido (usar formato de ejemplo).</li>
-            <li>Guarda y sube el archivo al hosting / Github (hacer commit y push si usas GitHub).</li>
-          </ol>
-        </div>
-      </section>
-    </main>
+    <section id="blog">
+      <h2>Blog semanal</h2>
+      <p>Este apartado se actualizará automáticamente cada lunes. El contenido se carga desde <code>blog.json</code>.</p>
+      <div id="countdown" class="countdown">Calculando...</div>
+      <div id="posts"></div>
+    </section>
 
     <footer>
-      <div>© <strong>TenTempieLand</strong> — Comunidad Minecraft</div>
-      <div class="muted">Contacto: admin (placeholder) · Discord/Redes (por añadir)</div>
+      © 2025 TenTempieLand — Comunidad Minecraft
     </footer>
   </div>
 
   <script>
-    // Mensaje en consola
-    console.log("TenTempieLand — página generada. Autor: ChatGPT (Lyra).");
-
-    /* ========== Contador: próximo Lunes 00:00 (Europe/Madrid) ========== */
+    // Contador hasta el próximo lunes (Europe/Madrid)
     function getMadridNow(){
-      try{
-        // Usamos toLocaleString con timeZone para aproximar "ahora" en Madrid
-        const s = new Date().toLocaleString('en-US', { timeZone: 'Europe/Madrid' });
+      try {
+        const s = new Date().toLocaleString("en-US",{timeZone:"Europe/Madrid"});
         return new Date(s);
-      }catch(e){
-        return new Date(); // fallback al reloj local
-      }
+      } catch { return new Date(); }
     }
 
-    function nextMondayMadrid(){
+    function nextMonday(){
       const now = getMadridNow();
-      const day = now.getDay(); // 0 domingo .. 6 sábado
-      // días hasta siguiente lunes (si hoy es lunes -> 7)
+      const day = now.getDay(); // domingo=0, lunes=1
       const daysUntil = (8 - day) % 7 || 7;
       const next = new Date(now);
       next.setDate(now.getDate() + daysUntil);
@@ -448,50 +212,36 @@
 
     function updateCountdown(){
       const now = getMadridNow();
-      const target = nextMondayMadrid();
+      const target = nextMonday();
       const diff = target - now;
-      const el = document.getElementById('countdown');
-      if(diff <= 0){ el.textContent = '¡Es Lunes! Actualiza el blog.'; return; }
+      const el = document.getElementById("countdown");
+      if(diff <= 0){ el.textContent = "¡Es lunes! Actualiza el blog."; return; }
       const s = Math.floor(diff/1000)%60;
-      const m = Math.floor(diff/1000/60)%60;
-      const h = Math.floor(diff/1000/60/60)%24;
-      const d = Math.floor(diff/1000/60/60/24);
-      el.textContent = `${d}d ${h}h ${m}m ${s}s — hasta el próximo lunes (Europe/Madrid)`;
-      // estado del blog: mostramos la fecha del próximo lunes en formato legible
-      const blogStatus = document.getElementById('blog-status');
-      const fecha = target.toLocaleDateString('es-ES', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
-      blogStatus.textContent = `Próxima actualización: ${fecha}`;
+      const m = Math.floor(diff/60000)%60;
+      const h = Math.floor(diff/3600000)%24;
+      const d = Math.floor(diff/86400000);
+      el.textContent = `${d}d ${h}h ${m}m ${s}s hasta el próximo lunes`;
     }
-    setInterval(updateCountdown, 1000);
+    setInterval(updateCountdown,1000);
     updateCountdown();
 
-    // Efecto "reveal" para timeline
-    function revealOnScroll(){
-      const items = document.querySelectorAll('.timeline .event');
-      const top = window.innerHeight * 0.85;
-      items.forEach(i => {
-        const r = i.getBoundingClientRect();
-        if(r.top < top) i.classList.add('visible');
-      });
-    }
-    window.addEventListener('scroll', revealOnScroll);
-    window.addEventListener('resize', revealOnScroll);
-    revealOnScroll();
-
-    // Util: formato de fecha en español
-    function formatoFechaES(date){
-      try{
-        return new Date(date).toLocaleDateString('es-ES', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
-      }catch(e){
-        return date;
+    // Cargar blog.json
+    async function loadBlog(){
+      const container = document.getElementById("posts");
+      try {
+        const res = await fetch("blog.json",{cache:"no-store"});
+        if(!res.ok) throw new Error();
+        const data = await res.json();
+        if(!data.posts || data.posts.length === 0){
+          container.innerHTML = `<div class="post">Nada por ahora</div>`;
+        } else {
+          container.innerHTML = data.posts.map(p=>`<div class="post">${p}</div>`).join("");
+        }
+      } catch {
+        container.innerHTML = `<div class="post">Nada por ahora</div>`;
       }
     }
-
-    // Accesibilidad extra: navegación por teclado para enlaces de nav
-    (function(){
-      const navLinks = document.querySelectorAll('nav .nav-link');
-      navLinks.forEach(l => { l.setAttribute('tabindex','0'); });
-    })();
+    loadBlog();
   </script>
 </body>
 </html>
