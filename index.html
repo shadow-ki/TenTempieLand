@@ -6,7 +6,7 @@
 <title>TenTempieLand — Servidor Minecraft</title>
 
 <style>
-:root {
+:root{
   --bg:#0a0d11;
   --panel:#111827;
   --text:#e5e7eb;
@@ -31,7 +31,6 @@ body{
 .container{
   width:100%;
   max-width:var(--max-width);
-  animation:fadeIn 1s ease;
 }
 
 /* HEADER */
@@ -65,8 +64,7 @@ nav a:hover{color:var(--accent)}
   gap:5px;
 }
 .menu-toggle span{
-  width:25px;height:3px;
-  background:var(--muted);
+  width:25px;height:3px;background:var(--muted);
 }
 
 /* SECTIONS */
@@ -76,44 +74,42 @@ section{
   padding:16px;
   border-radius:var(--radius);
 }
+h2{color:var(--accent);margin-bottom:10px}
 
-h2{
-  color:var(--accent);
-  margin-bottom:10px;
-}
-
-/* USERS GRID */
+/* USERS */
 .users-grid{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
   gap:12px;
 }
-
 .user-card{
   background:rgba(255,255,255,0.04);
   border-radius:8px;
   padding:10px;
   text-align:center;
-  transition:transform .2s, box-shadow .2s;
+  position:relative;
+  transition:.2s;
 }
-
-.user-card:hover{
-  transform:translateY(-4px) scale(1.03);
-  box-shadow:0 0 12px rgba(124,77,255,0.3);
-}
+.user-card:hover{transform:scale(1.05)}
 
 .user-card img{
-  width:80px;
-  height:160px;
+  width:80px;height:160px;
   image-rendering:pixelated;
 }
 
-.user-card span{
-  display:block;
+/* BADGES */
+.badge{
+  display:inline-block;
   margin-top:6px;
-  color:var(--muted);
+  padding:3px 8px;
+  border-radius:6px;
+  font-size:11px;
   font-weight:bold;
+  color:#fff;
 }
+.badge.MC{background:#4caf50}
+.badge.TL{background:#ff9800}
+.badge.SK{background:#03a9f4}
 
 /* NORMAS */
 #normas ul{
@@ -150,16 +146,14 @@ h2{
   border-radius:6px;
   margin-top:10px;
 }
-
 .countdown{
   font-family:monospace;
   color:var(--accent2);
 }
 
-/* FOOTER */
 footer{
-  text-align:center;
   margin-top:16px;
+  text-align:center;
   color:var(--muted);
   font-size:14px;
 }
@@ -168,10 +162,7 @@ footer{
   .menu-toggle{display:flex}
   nav{max-height:0;overflow:hidden;width:100%;flex-direction:column}
   nav.open{max-height:300px}
-  header{align-items:flex-start}
 }
-
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
 </style>
 </head>
 
@@ -195,7 +186,7 @@ footer{
 
 <section id="intro">
   <h2>Bienvenido a TenTempieLand</h2>
-  <p>Servidor de Minecraft orientado a comunidad, rol y creatividad.</p>
+  <p>Servidor de Minecraft con comunidad y rol.</p>
 </section>
 
 <section id="usuarios">
@@ -205,24 +196,24 @@ footer{
 
 <section id="historia">
   <h2>Historia</h2>
-  <p>Fundado el 27 de agosto de 2022. Un mundo lleno de historias épicas.</p>
+  <p>Fundado el 27 de agosto de 2022.</p>
 </section>
 
 <section id="normas">
   <h2>Normas del servidor</h2>
   <ul>
-    <li>Respeta a todos los jugadores.</li>
-    <li>No destruyas ni robes propiedad ajena.</li>
-    <li>No matar sin consentimiento o evento.</li>
-    <li>No exploits ni trampas.</li>
+    <li>Respeta a todos.</li>
+    <li>No destruir ni robar.</li>
+    <li>No matar sin motivo.</li>
+    <li>No exploits.</li>
     <li>Sistema judicial obligatorio.</li>
   </ul>
 </section>
 
 <section id="roles" class="roles">
   <h2>Roles y Altos Cargos</h2>
-  <div><strong>Presidente:</strong> Dirige el gobierno.</div>
-  <div><strong>Vicepresidente:</strong> Administrador general.</div>
+  <div><strong>Presidente:</strong> Lidera.</div>
+  <div><strong>Vicepresidente:</strong> Apoya.</div>
   <div><strong>Juez:</strong> Aplica justicia.</div>
   <div><strong>Rey:</strong> Veto simbólico.</div>
 </section>
@@ -238,50 +229,53 @@ footer{
 </div>
 
 <script>
+/* MENU */
 document.getElementById("menu-toggle")
 .onclick=()=>document.getElementById("nav-menu").classList.toggle("open");
 
-/* USERS FROM JSON + SKINS */
+/* USERS WITH MC / TL / SK */
 fetch("users.json")
 .then(r=>r.json())
 .then(users=>{
   document.getElementById("users").innerHTML =
-    users.map(u=>`
-      <a href="https://www.minecraft.net/profile/${u}" target="_blank">
-        <div class="user-card">
-          <img src="https://minotar.net/body/${u}/160" alt="${u}">
-          <span>${u}</span>
-        </div>
-      </a>
-    `).join("");
+    users.map(e=>{
+      const [type,name]=e.split(":");
+      let skin="",badge="",profile="#";
+
+      if(type==="MC"){
+        skin=`https://minotar.net/body/${name}/160`;
+        badge="MC";
+        profile=`https://www.minecraft.net/profile/${name}`;
+      }
+      if(type==="TL"){
+        skin=`https://tlauncher.org/upload/all/skins/${name}.png`;
+        badge="TL";
+      }
+      if(type==="SK"){
+        skin=`https://minotar.net/body/${name}/160`;
+        badge="SK";
+      }
+
+      return `
+        <a href="${profile}" target="_blank">
+          <div class="user-card">
+            <img src="${skin}"
+              onerror="this.src='https://minotar.net/body/${name}/160'">
+            <span>${name}</span>
+            <div class="badge ${badge}">${badge}</div>
+          </div>
+        </a>
+      `;
+    }).join("");
 });
 
 /* BLOG */
 fetch("blog.json")
 .then(r=>r.json())
 .then(d=>{
-  document.getElementById("posts").innerHTML =
+  document.getElementById("posts").innerHTML=
     d.posts.map(p=>`<div class="post">${p}</div>`).join("");
 });
-
-/* COUNTDOWN */
-function nextMonday(){
-  const now=new Date();
-  const d=(8-now.getDay())%7||7;
-  const n=new Date(now);
-  n.setDate(now.getDate()+d);
-  n.setHours(0,0,0,0);
-  return n;
-}
-setInterval(()=>{
-  const diff=nextMonday()-new Date();
-  const d=Math.floor(diff/86400000);
-  const h=Math.floor(diff/3600000)%24;
-  const m=Math.floor(diff/60000)%60;
-  const s=Math.floor(diff/1000)%60;
-  document.getElementById("countdown").textContent=
-   `${d}d ${h}h ${m}m ${s}s hasta el próximo lunes`;
-},1000);
 </script>
 
 </body>
