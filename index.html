@@ -1,284 +1,287 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TenTempieLand — Servidor Minecraft</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TenTempieLand — Servidor Minecraft</title>
 
-  <style>
-    :root {
-      --bg: #0a0d11;
-      --panel: #111827;
-      --text: #e5e7eb;
-      --muted: #9ca3af;
-      --accent: #7c4dff;
-      --accent2: #06d6a0;
-      --radius: 10px;
-      --max-width: 900px;
-    }
+<style>
+:root {
+  --bg:#0a0d11;
+  --panel:#111827;
+  --text:#e5e7eb;
+  --muted:#9ca3af;
+  --accent:#7c4dff;
+  --accent2:#06d6a0;
+  --radius:10px;
+  --max-width:900px;
+}
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+*{box-sizing:border-box;margin:0;padding:0}
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: "Segoe UI", Roboto, sans-serif;
-      display: flex;
-      justify-content: center;
-      padding: 20px;
-    }
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:"Segoe UI",Roboto,sans-serif;
+  display:flex;
+  justify-content:center;
+  padding:20px;
+}
 
-    .container {
-      width: 100%;
-      max-width: var(--max-width);
-      animation: fadeIn 1s ease forwards;
-    }
+.container{
+  width:100%;
+  max-width:var(--max-width);
+  animation:fadeIn 1s ease;
+}
 
-    header {
-      background: #151b26;
-      border-radius: var(--radius);
-      padding: 10px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
+/* HEADER */
+header{
+  background:#151b26;
+  border-radius:var(--radius);
+  padding:10px 16px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+}
+header img{height:60px}
 
-    header img {
-      height: 60px;
-    }
+nav{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+nav a{
+  color:var(--muted);
+  text-decoration:none;
+  font-weight:bold;
+}
+nav a:hover{color:var(--accent)}
 
-    nav {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
+.menu-toggle{
+  display:none;
+  flex-direction:column;
+  cursor:pointer;
+  gap:5px;
+}
+.menu-toggle span{
+  width:25px;height:3px;
+  background:var(--muted);
+}
 
-    nav a {
-      color: var(--muted);
-      text-decoration: none;
-      font-weight: bold;
-    }
+/* SECTIONS */
+section{
+  background:var(--panel);
+  margin-top:16px;
+  padding:16px;
+  border-radius:var(--radius);
+}
 
-    nav a:hover {
-      color: var(--accent);
-    }
+h2{
+  color:var(--accent);
+  margin-bottom:10px;
+}
 
-    .menu-toggle {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
-      gap: 5px;
-    }
+/* USERS GRID */
+.users-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+  gap:12px;
+}
 
-    .menu-toggle span {
-      width: 25px;
-      height: 3px;
-      background: var(--muted);
-    }
+.user-card{
+  background:rgba(255,255,255,0.04);
+  border-radius:8px;
+  padding:10px;
+  text-align:center;
+  transition:transform .2s, box-shadow .2s;
+}
 
-    section {
-      background: var(--panel);
-      margin-top: 16px;
-      padding: 16px;
-      border-radius: var(--radius);
-      animation: slideUp 0.8s forwards;
-    }
+.user-card:hover{
+  transform:translateY(-4px) scale(1.03);
+  box-shadow:0 0 12px rgba(124,77,255,0.3);
+}
 
-    h2 {
-      color: var(--accent);
-      margin-bottom: 8px;
-    }
+.user-card img{
+  width:80px;
+  height:160px;
+  image-rendering:pixelated;
+}
 
-    /* USUARIOS */
-    .users a {
-      text-decoration: none;
-    }
+.user-card span{
+  display:block;
+  margin-top:6px;
+  color:var(--muted);
+  font-weight:bold;
+}
 
-    .users span {
-      display: inline-block;
-      background: rgba(255,255,255,0.05);
-      border-radius: 999px;
-      padding: 6px 12px;
-      margin: 4px;
-      font-size: 14px;
-      color: var(--muted);
-      transition: transform 0.2s, background 0.2s;
-    }
+/* NORMAS */
+#normas ul{
+  list-style:none;
+  margin-left:40px;
+}
+#normas li{
+  position:relative;
+  padding-left:20px;
+  margin:10px 0;
+  color:var(--muted);
+}
+#normas li::before{
+  content:"|";
+  position:absolute;
+  left:0;
+  color:var(--accent);
+  font-weight:bold;
+}
 
-    .users span:hover {
-      transform: scale(1.05);
-      background: rgba(124,77,255,0.2);
-      color: var(--accent);
-    }
+/* ROLES */
+.roles div{
+  background:rgba(255,255,255,0.05);
+  border-left:4px solid var(--accent);
+  padding:10px;
+  margin:8px 0;
+  border-radius:6px;
+}
 
-    /* NORMAS SIN PUNTOS Y A LA DERECHA */
-    #normas ul {
-      list-style: none;
-      margin-left: 40px;
-      padding-left: 0;
-    }
+/* BLOG */
+.post{
+  background:rgba(255,255,255,0.03);
+  padding:10px;
+  border-radius:6px;
+  margin-top:10px;
+}
 
-    #normas li {
-      position: relative;
-      padding-left: 20px;
-      margin: 10px 0;
-      color: var(--muted);
-    }
+.countdown{
+  font-family:monospace;
+  color:var(--accent2);
+}
 
-    #normas li::before {
-      content: "|";
-      position: absolute;
-      left: 0;
-      color: var(--accent);
-      font-weight: bold;
-    }
+/* FOOTER */
+footer{
+  text-align:center;
+  margin-top:16px;
+  color:var(--muted);
+  font-size:14px;
+}
 
-    .roles div {
-      background: rgba(255,255,255,0.05);
-      border-left: 4px solid var(--accent);
-      margin: 8px 0;
-      padding: 10px;
-      border-radius: 6px;
-    }
+@media(max-width:600px){
+  .menu-toggle{display:flex}
+  nav{max-height:0;overflow:hidden;width:100%;flex-direction:column}
+  nav.open{max-height:300px}
+  header{align-items:flex-start}
+}
 
-    .post {
-      background: rgba(255,255,255,0.03);
-      border-radius: 6px;
-      padding: 10px;
-      margin-top: 10px;
-    }
-
-    .countdown {
-      font-family: monospace;
-      color: var(--accent2);
-      margin-top: 8px;
-    }
-
-    footer {
-      margin-top: 16px;
-      text-align: center;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes slideUp {
-      from { opacity:0; transform: translateY(20px); }
-      to   { opacity:1; transform: translateY(0); }
-    }
-
-    @media (max-width: 600px) {
-      header { flex-direction: column; align-items: flex-start; }
-      .menu-toggle { display: flex; }
-
-      nav {
-        flex-direction: column;
-        width: 100%;
-        max-height: 0;
-        overflow: hidden;
-      }
-
-      nav.open {
-        max-height: 300px;
-      }
-    }
-  </style>
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+</style>
 </head>
 
 <body>
-  <div class="container">
+<div class="container">
 
-    <header>
-      <img src="logo_tentem.png" alt="Logo TenTempieLand">
-      <div class="menu-toggle" id="menu-toggle">
-        <span></span><span></span><span></span>
-      </div>
-      <nav id="nav-menu">
-        <a href="#intro">Inicio</a>
-        <a href="#usuarios">Usuarios</a>
-        <a href="#historia">Historia</a>
-        <a href="#normas">Normas</a>
-        <a href="#roles">Roles</a>
-        <a href="#blog">Blog</a>
-      </nav>
-    </header>
-
-    <section id="intro">
-      <h2>Bienvenido a TenTempieLand</h2>
-      <p>Servidor de Minecraft donde la diversión, la comunidad y la creatividad se unen.</p>
-    </section>
-
-    <section id="usuarios" class="users">
-      <h2>Usuarios del servidor</h2>
-
-      <a href="https://www.minecraft.net/profile/Jose_ID" target="_blank"><span>Jose_ID</span></a>
-      <a href="https://www.minecraft.net/profile/RorStark22" target="_blank"><span>RorStark22</span></a>
-      <a href="https://www.minecraft.net/profile/SrPiglett10" target="_blank"><span>SrPiglett10</span></a>
-      <a href="https://www.minecraft.net/profile/TecLeo99" target="_blank"><span>TecLeo99</span></a>
-      <a href="https://www.minecraft.net/profile/TorriKarlos10" target="_blank"><span>TorriKarlos10</span></a>
-      <a href="https://www.minecraft.net/profile/V1CT0RSawKiller" target="_blank"><span>V1CT0RSawKiller</span></a>
-
-    </section>
-
-    <section id="historia">
-      <h2>Historia</h2>
-      <p>Fundado el 27 de agosto de 2022. Nuestra historia está llena de creatividad.</p>
-    </section>
-
-    <section id="normas">
-      <h2>Normas del servidor</h2>
-      <ul>
-        <li>Respeta a todos los jugadores.</li>
-        <li>No destruyas ni robes propiedad ajena.</li>
-        <li>No matar sin consentimiento o en evento.</li>
-        <li>Evita trampas o exploits.</li>
-        <li>Sigue el sistema judicial del servidor.</li>
-      </ul>
-    </section>
-
-    <section id="roles" class="roles">
-      <h2>Roles y Altos Cargos</h2>
-      <div><strong>Presidente:</strong> Dirige el gobierno.</div>
-      <div><strong>Vicepresidente:</strong> Apoya al presidente.</div>
-      <div><strong>Juez:</strong> Aplica normas.</div>
-      <div><strong>Rey:</strong> Figura simbólica con veto.</div>
-      <div><strong>Ministros:</strong> Gestión de áreas.</div>
-    </section>
-
-    <section id="blog">
-      <h2>Blog semanal</h2>
-      <div id="countdown" class="countdown">Calculando...</div>
-      <div id="posts"></div>
-    </section>
-
-    <footer>
-      © 2025 TenTempieLand — Comunidad Minecraft
-    </footer>
-
+<header>
+  <img src="logo_tentem.png" alt="TenTempieLand">
+  <div class="menu-toggle" id="menu-toggle">
+    <span></span><span></span><span></span>
   </div>
+  <nav id="nav-menu">
+    <a href="#intro">Inicio</a>
+    <a href="#usuarios">Usuarios</a>
+    <a href="#historia">Historia</a>
+    <a href="#normas">Normas</a>
+    <a href="#roles">Roles</a>
+    <a href="#blog">Blog</a>
+  </nav>
+</header>
+
+<section id="intro">
+  <h2>Bienvenido a TenTempieLand</h2>
+  <p>Servidor de Minecraft orientado a comunidad, rol y creatividad.</p>
+</section>
+
+<section id="usuarios">
+  <h2>Usuarios del servidor</h2>
+  <div class="users-grid" id="users"></div>
+</section>
+
+<section id="historia">
+  <h2>Historia</h2>
+  <p>Fundado el 27 de agosto de 2022. Un mundo lleno de historias épicas.</p>
+</section>
+
+<section id="normas">
+  <h2>Normas del servidor</h2>
+  <ul>
+    <li>Respeta a todos los jugadores.</li>
+    <li>No destruyas ni robes propiedad ajena.</li>
+    <li>No matar sin consentimiento o evento.</li>
+    <li>No exploits ni trampas.</li>
+    <li>Sistema judicial obligatorio.</li>
+  </ul>
+</section>
+
+<section id="roles" class="roles">
+  <h2>Roles y Altos Cargos</h2>
+  <div><strong>Presidente:</strong> Dirige el gobierno.</div>
+  <div><strong>Vicepresidente:</strong> Administrador general.</div>
+  <div><strong>Juez:</strong> Aplica justicia.</div>
+  <div><strong>Rey:</strong> Veto simbólico.</div>
+</section>
+
+<section id="blog">
+  <h2>Blog semanal</h2>
+  <div class="countdown" id="countdown">Cargando...</div>
+  <div id="posts"></div>
+</section>
+
+<footer>© 2025 TenTempieLand</footer>
+
+</div>
 
 <script>
-  const toggle = document.getElementById("menu-toggle");
-  const menu = document.getElementById("nav-menu");
-  toggle.addEventListener("click", () => menu.classList.toggle("open"));
+document.getElementById("menu-toggle")
+.onclick=()=>document.getElementById("nav-menu").classList.toggle("open");
 
-  async function loadBlog() {
-    const container = document.getElementById("posts");
-    try {
-      const res = await fetch("blog.json", { cache: "no-store" });
-      const data = await res.json();
-      container.innerHTML = data.posts.map(p =>
-        `<div class="post">${p}</div>`).join("");
-    } catch {
-      container.innerHTML = `<div class="post">Nada por ahora</div>`;
-    }
-  }
-  loadBlog();
+/* USERS FROM JSON + SKINS */
+fetch("users.json")
+.then(r=>r.json())
+.then(users=>{
+  document.getElementById("users").innerHTML =
+    users.map(u=>`
+      <a href="https://www.minecraft.net/profile/${u}" target="_blank">
+        <div class="user-card">
+          <img src="https://minotar.net/body/${u}/160" alt="${u}">
+          <span>${u}</span>
+        </div>
+      </a>
+    `).join("");
+});
+
+/* BLOG */
+fetch("blog.json")
+.then(r=>r.json())
+.then(d=>{
+  document.getElementById("posts").innerHTML =
+    d.posts.map(p=>`<div class="post">${p}</div>`).join("");
+});
+
+/* COUNTDOWN */
+function nextMonday(){
+  const now=new Date();
+  const d=(8-now.getDay())%7||7;
+  const n=new Date(now);
+  n.setDate(now.getDate()+d);
+  n.setHours(0,0,0,0);
+  return n;
+}
+setInterval(()=>{
+  const diff=nextMonday()-new Date();
+  const d=Math.floor(diff/86400000);
+  const h=Math.floor(diff/3600000)%24;
+  const m=Math.floor(diff/60000)%60;
+  const s=Math.floor(diff/1000)%60;
+  document.getElementById("countdown").textContent=
+   `${d}d ${h}h ${m}m ${s}s hasta el próximo lunes`;
+},1000);
 </script>
 
 </body>
