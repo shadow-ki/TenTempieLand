@@ -256,31 +256,29 @@ fetch("users.json")
 .then(users => {
   const container = document.getElementById("users");
 
-  container.innerHTML = users.map(e => {
-    const [type, name] = e.split(":");
+  container.innerHTML = users.map(user => {
+    const {type, name, skin} = user;
 
-    let skin = "";
-    let badge = "";
+    let badge = type;
     let profile = "#";
+    let skinUrl = skin;
 
-    if(type === "MC"){
-      skin = `https://minotar.net/body/${name}/160`;
-      badge = "MC";
-      profile = `https://www.minecraft.net/profile/${name}`;
-    }
-    if(type === "TL"){
-      skin = `https://tlauncher.org/upload/all/skins/${name}.png`;
-      badge = "TL";
-    }
-    if(type === "SK"){
-      skin = `https://minotar.net/body/${name}/160`;
-      badge = "SK";
+    // Si no hay skin personalizada
+    if(!skinUrl){
+      if(type === "MC") {
+        skinUrl = `https://minotar.net/body/${name}/160`;
+        profile = `https://www.minecraft.net/profile/${name}`;
+      } else if(type === "TL") {
+        skinUrl = `https://tlauncher.org/upload/all/skins/${name}.png`;
+      } else if(type === "SK") {
+        skinUrl = `https://minotar.net/body/${name}/160`;
+      }
     }
 
     return `
       <a href="${profile}" target="_blank">
         <div class="user-card">
-          <img src="${skin}" onerror="this.src='https://minotar.net/body/${name}/160'" alt="${name}">
+          <img src="${skinUrl}" onerror="this.src='https://minotar.net/body/${name}/160'" alt="${name}">
           <div class="user-info">
             <span class="user-name">${name}</span>
             <div class="badge ${badge}">${badge}</div>

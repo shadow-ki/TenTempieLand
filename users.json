@@ -1,8 +1,32 @@
 [
-  "MC:Jose_ID",
-  "SK:RorStark22",
-  "MC:SrPiglett10",
-  "MC:TecLeo99",
-  "MC:TorriKarlos10",
-  "MC:V1CT0RSawKiller"
+  {
+    "type": "MC",
+    "name": "Jose_ID",
+    "skin": ""
+  },
+  {
+    "type": "SK",
+    "name": "RorStark22",
+    "skin": ""
+  },
+  {
+    "type": "MC",
+    "name": "SrPiglett10",
+    "skin": ""
+  },
+  {
+    "type": "MC",
+    "name": "TecLeo99",
+    "skin": ""
+  },
+  {
+    "type": "MC",
+    "name": "TorriKarlos10",
+    "skin": ""
+  },
+  {
+    "type": "MC",
+    "name": "V1CT0RSawKiller",
+    "skin": ""
+  }
 ]
