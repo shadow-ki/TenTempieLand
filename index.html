@@ -42,20 +42,35 @@ header{
   justify-content:space-between;
   align-items:center;
   flex-wrap:wrap;
+  transition: all 0.3s ease;
+  overflow:hidden;
 }
-header img{height:60px}
+header img{
+  height:60px;
+  transition: transform 2s ease-in-out;
+  animation: floatLogo 4s ease-in-out infinite;
+}
+@keyframes floatLogo {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
 
 nav{
   display:flex;
   gap:12px;
   flex-wrap:wrap;
+  transition: max-height 0.4s ease;
 }
 nav a{
   color:var(--muted);
   text-decoration:none;
   font-weight:bold;
+  transition: all 0.3s ease;
 }
-nav a:hover{color:var(--accent)}
+nav a:hover{
+  color:var(--accent);
+  transform: scale(1.05);
+}
 
 .menu-toggle{
   display:none;
@@ -65,6 +80,7 @@ nav a:hover{color:var(--accent)}
 }
 .menu-toggle span{
   width:25px;height:3px;background:var(--muted);
+  transition: all 0.3s ease;
 }
 
 /* SECTIONS */
@@ -73,6 +89,13 @@ section{
   margin-top:16px;
   padding:16px;
   border-radius:var(--radius);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease-out;
+}
+section.visible{
+  opacity: 1;
+  transform: translateY(0);
 }
 h2{color:var(--accent);margin-bottom:10px}
 
@@ -88,12 +111,18 @@ h2{color:var(--accent);margin-bottom:10px}
   padding:10px;
   text-align:center;
   position:relative;
-  transition:.2s;
+  transition: transform 0.3s ease, opacity 0.3s ease;
   display:flex;
   flex-direction:column;
   align-items:center;
+  opacity: 0;
+  animation: floatUser 4s ease-in-out infinite;
 }
-.user-card:hover{transform:scale(1.05)}
+.user-card.show{
+  opacity: 1;
+  transform: translateY(0);
+}
+.user-card:hover{transform: scale(1.05)}
 
 .user-card img{
   width:80px;
@@ -154,6 +183,13 @@ h2{color:var(--accent);margin-bottom:10px}
   padding:10px;
   margin:8px 0;
   border-radius:6px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease;
+}
+.roles div.show{
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* BLOG */
@@ -162,10 +198,23 @@ h2{color:var(--accent);margin-bottom:10px}
   padding:10px;
   border-radius:6px;
   margin-top:10px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease;
+}
+.post.show{
+  opacity: 1;
+  transform: translateY(0);
 }
 .countdown{
   font-family:monospace;
   color:var(--accent2);
+}
+
+/* FLOAT ANIMATION */
+@keyframes floatUser {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
 }
 
 footer{
@@ -209,6 +258,9 @@ footer{
 <section id="usuarios">
   <h2>Usuarios del servidor</h2>
   <div class="users-grid" id="users"></div>
+  <p style="text-align:center;margin-top:10px;color:var(--accent2);font-weight:bold;">
+    Usuarios actuales: <span id="pi-users">π ≈ 3.14</span>
+  </p>
 </section>
 
 <section id="historia">
@@ -248,36 +300,38 @@ footer{
 <script>
 /* MENU */
 document.getElementById("menu-toggle")
-.onclick=()=>document.getElementById("nav-menu").classList.toggle("open");
+.onclick = () => document.getElementById("nav-menu").classList.toggle("open");
+
+/* SECCIONES APARECEN AL SCROLL */
+const sections = document.querySelectorAll('section');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+},{threshold: 0.1});
+sections.forEach(section => observer.observe(section));
 
 /* USERS */
 fetch("users.json")
 .then(r => r.json())
 .then(users => {
   const container = document.getElementById("users");
-
   container.innerHTML = users.map(user => {
     const {type, name, skin} = user;
-
     let badge = type;
     let profile = "#";
     let skinUrl;
 
-    // Si el JSON tiene skin válido, usarlo
-    if (skin && skin.trim() !== "") {
+    if(skin && skin.trim() !== ""){
       skinUrl = skin;
     } else {
-      // fallback según tipo
-      if(type === "MC") {
-        skinUrl = `https://minotar.net/body/${name}/160`;
-        profile = `https://www.minecraft.net/profile/${name}`;
-      } else if(type === "TL") {
-        skinUrl = `https://tlauncher.org/upload/all/skins/${name}.png`;
-      } else if(type === "SK") {
-        skinUrl = `https://minotar.net/body/${name}/160`;
-      } else {
-        skinUrl = "skins/default.png"; // fallback genérico
-      }
+      if(type === "MC"){ skinUrl = `https://minotar.net/body/${name}/160`; profile = `https://www.minecraft.net/profile/${name}`; }
+      else if(type === "TL"){ skinUrl = `https://tlauncher.org/upload/all/skins/${name}.png`; }
+      else if(type === "SK"){ skinUrl = `https://minotar.net/body/${name}/160`; }
+      else{ skinUrl = "skins/default.png"; }
     }
 
     return `
@@ -292,14 +346,36 @@ fetch("users.json")
       </a>
     `;
   }).join("");
+
+  // Animación flotante de los usuarios
+  const userCards = document.querySelectorAll('.user-card');
+  userCards.forEach((card, index) => {
+    setTimeout(() => card.classList.add('show'), index * 100);
+  });
+
+  // Mostrar número de usuarios como π aproximado
+  const piEl = document.getElementById('pi-users');
+  const count = users.length;
+  piEl.textContent = `π ≈ ${Math.min(count, 3.14159).toFixed(2)}`;
 });
 
 /* BLOG */
 fetch("blog.json")
 .then(r => r.json())
 .then(d => {
-  document.getElementById("posts").innerHTML =
-    d.posts.map(p => `<div class="post">${p}</div>`).join("");
+  const postsContainer = document.getElementById("posts");
+  postsContainer.innerHTML = d.posts.map(p => `<div class="post">${p}</div>`).join("");
+
+  const posts = document.querySelectorAll('.post');
+  posts.forEach((post, index) => {
+    setTimeout(() => post.classList.add('show'), index * 150);
+  });
+});
+
+/* ANIMACIÓN SUAVE PARA ROLES */
+const roleDivs = document.querySelectorAll('.roles div');
+roleDivs.forEach((div, index) => {
+  setTimeout(() => div.classList.add('show'), index * 150);
 });
 </script>
 
