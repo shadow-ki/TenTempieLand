@@ -2,12 +2,12 @@
   {
     "type": "MC",
     "name": "Jose_ID",
-    "skin": "https://minotar.net/body/Jose_ID/160"
+    "skin": "https://minotar.net/body/JoseID/160"
   },
   {
     "type": "SK",
     "name": "RorStark22",
-    "skin": ""
+    "skin": "./skins/RorStark22.png"
   },
   {
     "type": "MC",
