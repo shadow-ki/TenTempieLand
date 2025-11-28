@@ -235,38 +235,41 @@ document.getElementById("menu-toggle")
 
 /* USERS WITH MC / TL / SK */
 fetch("users.json")
-.then(r=>r.json())
-.then(users=>{
-  document.getElementById("users").innerHTML =
-    users.map(e=>{
-      const [type,name]=e.split(":");
-      let skin="",badge="",profile="#";
+.then(r => r.json())
+.then(users => {
+  const container = document.getElementById("users");
 
-      if(type==="MC"){
-        skin=`https://minotar.net/body/${name}/160`;
-        badge="MC";
-        profile=`https://www.minecraft.net/profile/${name}`;
-      }
-      if(type==="TL"){
-        skin=`https://tlauncher.org/upload/all/skins/${name}.png`;
-        badge="TL";
-      }
-      if(type==="SK"){
-        skin=`https://minotar.net/body/${name}/160`;
-        badge="SK";
-      }
+  container.innerHTML = users.map(e => {
+    const [type, name] = e.split(":");
 
-      return `
-        <a href="${profile}" target="_blank">
-          <div class="user-card">
-            <img src="${skin}"
-              onerror="this.src='https://minotar.net/body/${name}/160'">
-            <span>${name}</span>
-            <div class="badge ${badge}">${badge}</div>
-          </div>
-        </a>
-      `;
-    }).join("");
+    let skin = "";
+    let badge = "";
+    let profile = "#";
+
+    if(type === "MC"){
+      skin = `https://minotar.net/body/${name}/160`;
+      badge = "MC";
+      profile = `https://www.minecraft.net/profile/${name}`;
+    }
+    if(type === "TL"){
+      skin = `https://tlauncher.org/upload/all/skins/${name}.png`;
+      badge = "TL";
+    }
+    if(type === "SK"){
+      skin = `https://minotar.net/body/${name}/160`;
+      badge = "SK";
+    }
+
+    return `
+      <a href="${profile}" target="_blank">
+        <div class="user-card">
+          <img src="${skin}" onerror="this.src='https://minotar.net/body/${name}/160'" alt="${name}">
+          <span>${name}</span>
+          <div class="badge ${badge}">${badge}</div>
+        </div>
+      </a>
+    `;
+  }).join("");
 });
 
 /* BLOG */
