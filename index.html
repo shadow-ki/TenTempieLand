@@ -260,19 +260,20 @@ fetch("users.json")
     const {type, name, skin} = user;
 
     let badge = type;
-    let profile = "";
+    let profile = "#";
     let skinUrl;
 
-    // Validación robusta para skin
+    // Si el JSON tiene skin válido, usarlo
     if (skin && skin.trim() !== "") {
       skinUrl = skin;
     } else {
-      if (type === "MC") {
+      // fallback según tipo
+      if(type === "MC") {
         skinUrl = `https://minotar.net/body/${name}/160`;
         profile = `https://www.minecraft.net/profile/${name}`;
-      } else if (type === "TL") {
+      } else if(type === "TL") {
         skinUrl = `https://tlauncher.org/upload/all/skins/${name}.png`;
-      } else if (type === "SK") {
+      } else if(type === "SK") {
         skinUrl = `https://minotar.net/body/${name}/160`;
       } else {
         skinUrl = "skins/default.png"; // fallback genérico
