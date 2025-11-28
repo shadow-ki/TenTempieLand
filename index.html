@@ -259,7 +259,7 @@ footer{
   <h2>Usuarios del servidor</h2>
   <div class="users-grid" id="users"></div>
   <p style="text-align:center;margin-top:10px;color:var(--accent2);font-weight:bold;">
-    Usuarios actuales: <span id="pi-users">π ≈ 3.14</span>
+    Total de jugadores: <span id="total-users">0</span>
   </p>
 </section>
 
@@ -347,16 +347,15 @@ fetch("users.json")
     `;
   }).join("");
 
-  // Animación flotante de los usuarios
+  // Animación de aparición de usuarios
   const userCards = document.querySelectorAll('.user-card');
   userCards.forEach((card, index) => {
     setTimeout(() => card.classList.add('show'), index * 100);
   });
 
-  // Mostrar número de usuarios como π aproximado
-  const piEl = document.getElementById('pi-users');
-  const count = users.length;
-  piEl.textContent = `π ≈ ${Math.min(count, 3.14159).toFixed(2)}`;
+  // Mostrar total de jugadores
+  const totalEl = document.getElementById('total-users');
+  totalEl.textContent = users.length;
 });
 
 /* BLOG */
