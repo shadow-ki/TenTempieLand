@@ -313,43 +313,39 @@ fetch("users.json")
 .then(r => r.json())
 .then(users => {
   const container = document.getElementById("users");
+
   container.innerHTML = users.map(user => {
-    const {type, name, skin} = user;
-    let badge = type;
-    let profile = "#";
+    const { type, name, skin } = user;
     let skinUrl;
 
-    if(skin && skin.trim() !== ""){
+    // ✅ Si hay skin definida → usarla tal cual
+    if (skin && skin.trim() !== "") {
       skinUrl = skin;
     } else {
-      if(type === "MC"){ skinUrl = `https://minotar.net/body/${name}/160`; profile = `https://www.minecraft.net/profile/${name}`; }
-      else if(type === "TL"){ skinUrl = `https://tlauncher.org/upload/all/skins/${name}.png`; }
-      else if(type === "SK"){ skinUrl = `https://minotar.net/body/${name}/160`; }
-      else{ skinUrl = "skins/default.png"; }
+      // ✅ Fallback si NO hay skin
+      skinUrl = `https://minotar.net/body/${name}/160`;
     }
 
     return `
-      <a href="${profile}" target="_blank">
-        <div class="user-card">
-          <img src="${skinUrl}" onerror="this.src='https://minotar.net/body/${name}/160'" alt="${name}">
-          <div class="user-info">
-            <span class="user-name">${name}</span>
-            <div class="badge ${badge}">${badge}</div>
-          </div>
+      <div class="user-card">
+        <img src="${skinUrl}"
+             onerror="this.src='https://minotar.net/body/${name}/160'"
+             alt="${name}">
+        <div class="user-info">
+          <span class="user-name">${name}</span>
+          <div class="badge ${type}">${type}</div>
         </div>
-      </a>
+      </div>
     `;
   }).join("");
 
-  // Animación de aparición de usuarios
-  const userCards = document.querySelectorAll('.user-card');
-  userCards.forEach((card, index) => {
-    setTimeout(() => card.classList.add('show'), index * 100);
+  // Animación de aparición
+  document.querySelectorAll(".user-card").forEach((card, i) => {
+    setTimeout(() => card.classList.add("show"), i * 100);
   });
 
-  // Mostrar total de jugadores
-  const totalEl = document.getElementById('total-users');
-  totalEl.textContent = users.length;
+  // Total de jugadores
+  document.getElementById("total-users").textContent = users.length;
 });
 
 /* BLOG */
