@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TenTempieLand — Servidor Minecraft</title>
+
   <style>
     :root {
       --bg: #0a0d11;
@@ -16,7 +17,8 @@
       --max-width: 900px;
     }
 
-    * { box-sizing: border-box; margin:0; padding:0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
       background: var(--bg);
       color: var(--text);
@@ -24,7 +26,6 @@
       display: flex;
       justify-content: center;
       padding: 20px;
-      overflow-x: hidden;
     }
 
     .container {
@@ -38,35 +39,29 @@
       border-radius: var(--radius);
       padding: 10px 16px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       flex-wrap: wrap;
-      position: relative;
-      transition: all 0.3s ease;
     }
 
     header img {
       height: 60px;
-      transition: transform 0.3s ease;
     }
-    header img:hover { transform: scale(1.05); }
 
     nav {
       display: flex;
-      gap: 10px;
+      gap: 12px;
       flex-wrap: wrap;
-      transition: max-height 0.3s ease;
     }
 
     nav a {
       color: var(--muted);
       text-decoration: none;
       font-weight: bold;
-      transition: color 0.2s, transform 0.2s;
     }
+
     nav a:hover {
       color: var(--accent);
-      transform: translateY(-2px);
     }
 
     .menu-toggle {
@@ -80,24 +75,24 @@
       width: 25px;
       height: 3px;
       background: var(--muted);
-      border-radius: 2px;
-      transition: all 0.3s ease;
     }
 
     section {
       background: var(--panel);
       margin-top: 16px;
-      border-radius: var(--radius);
       padding: 16px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.4);
-      opacity: 0;
-      transform: translateY(20px);
+      border-radius: var(--radius);
       animation: slideUp 0.8s forwards;
     }
 
     h2 {
       color: var(--accent);
-      margin-top: 0;
+      margin-bottom: 8px;
+    }
+
+    /* USUARIOS */
+    .users a {
+      text-decoration: none;
     }
 
     .users span {
@@ -108,9 +103,36 @@
       margin: 4px;
       font-size: 14px;
       color: var(--muted);
-      transition: transform 0.2s ease;
+      transition: transform 0.2s, background 0.2s;
     }
-    .users span:hover { transform: scale(1.05); }
+
+    .users span:hover {
+      transform: scale(1.05);
+      background: rgba(124,77,255,0.2);
+      color: var(--accent);
+    }
+
+    /* NORMAS SIN PUNTOS Y A LA DERECHA */
+    #normas ul {
+      list-style: none;
+      margin-left: 40px;
+      padding-left: 0;
+    }
+
+    #normas li {
+      position: relative;
+      padding-left: 20px;
+      margin: 10px 0;
+      color: var(--muted);
+    }
+
+    #normas li::before {
+      content: "|";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: bold;
+    }
 
     .roles div {
       background: rgba(255,255,255,0.05);
@@ -118,16 +140,6 @@
       margin: 8px 0;
       padding: 10px;
       border-radius: 6px;
-      transition: transform 0.2s ease;
-    }
-    .roles div:hover { transform: translateX(5px); }
-
-    footer {
-      margin-top: 16px;
-      text-align: center;
-      color: var(--muted);
-      font-size: 14px;
-      padding: 10px;
     }
 
     .post {
@@ -135,15 +147,19 @@
       border-radius: 6px;
       padding: 10px;
       margin-top: 10px;
-      transition: transform 0.2s ease;
     }
-    .post:hover { transform: scale(1.02); }
 
     .countdown {
       font-family: monospace;
-      font-size: 15px;
       color: var(--accent2);
       margin-top: 8px;
+    }
+
+    footer {
+      margin-top: 16px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
     }
 
     @keyframes fadeIn {
@@ -152,31 +168,35 @@
     }
 
     @keyframes slideUp {
-      from { opacity:0; transform: translateY(20px);}
-      to { opacity:1; transform: translateY(0);}
+      from { opacity:0; transform: translateY(20px); }
+      to   { opacity:1; transform: translateY(0); }
     }
 
     @media (max-width: 600px) {
       header { flex-direction: column; align-items: flex-start; }
       .menu-toggle { display: flex; }
+
       nav {
         flex-direction: column;
         width: 100%;
         max-height: 0;
         overflow: hidden;
       }
-      nav.open { max-height: 500px; } /* Ajusta según cantidad de enlaces */
+
+      nav.open {
+        max-height: 300px;
+      }
     }
   </style>
 </head>
+
 <body>
   <div class="container">
+
     <header>
-      <img src="logo_tentem.png" alt="Logo TenTempieLand" onerror="this.style.opacity='0.5'" />
+      <img src="logo_tentem.png" alt="Logo TenTempieLand">
       <div class="menu-toggle" id="menu-toggle">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
       </div>
       <nav id="nav-menu">
         <a href="#intro">Inicio</a>
@@ -195,12 +215,19 @@
 
     <section id="usuarios" class="users">
       <h2>Usuarios del servidor</h2>
-      <span>En proceso ...</span>
+
+      <a href="https://www.minecraft.net/profile/Jose_ID" target="_blank"><span>Jose_ID</span></a>
+      <a href="https://www.minecraft.net/profile/RorStark22" target="_blank"><span>RorStark22</span></a>
+      <a href="https://www.minecraft.net/profile/SrPiglett10" target="_blank"><span>SrPiglett10</span></a>
+      <a href="https://www.minecraft.net/profile/TecLeo99" target="_blank"><span>TecLeo99</span></a>
+      <a href="https://www.minecraft.net/profile/TorriKarlos10" target="_blank"><span>TorriKarlos10</span></a>
+      <a href="https://www.minecraft.net/profile/V1CT0RSawKiller" target="_blank"><span>V1CT0RSawKiller</span></a>
+
     </section>
 
     <section id="historia">
       <h2>Historia</h2>
-      <p>Fundado el 27 de agosto de 2022. Nuestra historia está llena de creatividad y momentos memorables.</p>
+      <p>Fundado el 27 de agosto de 2022. Nuestra historia está llena de creatividad.</p>
     </section>
 
     <section id="normas">
@@ -208,7 +235,7 @@
       <ul>
         <li>Respeta a todos los jugadores.</li>
         <li>No destruyas ni robes propiedad ajena.</li>
-        <li>No matar sin consentimiento o contexto de evento.</li>
+        <li>No matar sin consentimiento o en evento.</li>
         <li>Evita trampas o exploits.</li>
         <li>Sigue el sistema judicial del servidor.</li>
       </ul>
@@ -216,11 +243,11 @@
 
     <section id="roles" class="roles">
       <h2>Roles y Altos Cargos</h2>
-      <div><strong>Presidente:</strong> Dirige el gobierno y nombra ministros.</div>
+      <div><strong>Presidente:</strong> Dirige el gobierno.</div>
       <div><strong>Vicepresidente:</strong> Apoya al presidente.</div>
-      <div><strong>Juez:</strong> Aplica normas y dicta sanciones.</div>
+      <div><strong>Juez:</strong> Aplica normas.</div>
       <div><strong>Rey:</strong> Figura simbólica con veto.</div>
-      <div><strong>Ministros:</strong> Encargados de áreas específicas.</div>
+      <div><strong>Ministros:</strong> Gestión de áreas.</div>
     </section>
 
     <section id="blog">
@@ -232,64 +259,27 @@
     <footer>
       © 2025 TenTempieLand — Comunidad Minecraft
     </footer>
+
   </div>
 
-  <script>
-    // Menú responsive
-    const toggle = document.getElementById("menu-toggle");
-    const menu = document.getElementById("nav-menu");
-    toggle.addEventListener("click", ()=> menu.classList.toggle("open"));
+<script>
+  const toggle = document.getElementById("menu-toggle");
+  const menu = document.getElementById("nav-menu");
+  toggle.addEventListener("click", () => menu.classList.toggle("open"));
 
-    // Contador hasta el próximo lunes (Europe/Madrid)
-    function getMadridNow(){
-      try {
-        const s = new Date().toLocaleString("en-US",{timeZone:"Europe/Madrid"});
-        return new Date(s);
-      } catch { return new Date(); }
+  async function loadBlog() {
+    const container = document.getElementById("posts");
+    try {
+      const res = await fetch("blog.json", { cache: "no-store" });
+      const data = await res.json();
+      container.innerHTML = data.posts.map(p =>
+        `<div class="post">${p}</div>`).join("");
+    } catch {
+      container.innerHTML = `<div class="post">Nada por ahora</div>`;
     }
+  }
+  loadBlog();
+</script>
 
-    function nextMonday(){
-      const now = getMadridNow();
-      const day = now.getDay();
-      const daysUntil = (8 - day) % 7 || 7;
-      const next = new Date(now);
-      next.setDate(now.getDate() + daysUntil);
-      next.setHours(0,0,0,0);
-      return next;
-    }
-
-    function updateCountdown(){
-      const now = getMadridNow();
-      const target = nextMonday();
-      const diff = target - now;
-      const el = document.getElementById("countdown");
-      if(diff <= 0){ el.textContent = "¡Es lunes! Actualiza el blog."; return; }
-      const s = Math.floor(diff/1000)%60;
-      const m = Math.floor(diff/60000)%60;
-      const h = Math.floor(diff/3600000)%24;
-      const d = Math.floor(diff/86400000);
-      el.textContent = `${d}d ${h}h ${m}m ${s}s hasta el próximo lunes`;
-    }
-    setInterval(updateCountdown,1000);
-    updateCountdown();
-
-    // Cargar blog.json
-    async function loadBlog(){
-      const container = document.getElementById("posts");
-      try {
-        const res = await fetch("blog.json",{cache:"no-store"});
-        if(!res.ok) throw new Error();
-        const data = await res.json();
-        if(!data.posts || data.posts.length === 0){
-          container.innerHTML = `<div class="post">Nada por ahora</div>`;
-        } else {
-          container.innerHTML = data.posts.map(p=>`<div class="post">${p}</div>`).join("");
-        }
-      } catch {
-        container.innerHTML = `<div class="post">Nada por ahora</div>`;
-      }
-    }
-    loadBlog();
-  </script>
 </body>
 </html>
