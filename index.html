@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TenTempieLand — Servidor Minecraft</title>
+
   <style>
     :root {
       --bg: #0a0d11;
@@ -16,12 +17,8 @@
       --max-width: 900px;
     }
 
-<<<<<<< HEAD
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
-=======
-    * { box-sizing: border-box; margin:0; padding:0; }
->>>>>>> refs/remotes/origin/main
     body {
       background: var(--bg);
       color: var(--text);
@@ -29,7 +26,6 @@
       display: flex;
       justify-content: center;
       padding: 20px;
-      overflow-x: hidden;
     }
 
     .container {
@@ -46,51 +42,26 @@
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      position: relative;
-      transition: all 0.3s ease;
     }
 
     header img {
       height: 60px;
-      transition: transform 0.3s ease;
     }
-    header img:hover { transform: scale(1.05); }
 
     nav {
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
-      transition: max-height 0.3s ease;
     }
 
     nav a {
       color: var(--muted);
       text-decoration: none;
       font-weight: bold;
-<<<<<<< HEAD
-=======
-      transition: color 0.2s, transform 0.2s;
->>>>>>> refs/remotes/origin/main
     }
 
     nav a:hover {
       color: var(--accent);
-      transform: translateY(-2px);
-    }
-
-    .menu-toggle {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
-      gap: 5px;
-    }
-
-    .menu-toggle span {
-      width: 25px;
-      height: 3px;
-      background: var(--muted);
-      border-radius: 2px;
-      transition: all 0.3s ease;
     }
 
     .menu-toggle {
@@ -110,13 +81,7 @@
       background: var(--panel);
       margin-top: 16px;
       padding: 16px;
-<<<<<<< HEAD
       border-radius: var(--radius);
-=======
-      box-shadow: 0 0 10px rgba(0,0,0,0.4);
-      opacity: 0;
-      transform: translateY(20px);
->>>>>>> refs/remotes/origin/main
       animation: slideUp 0.8s forwards;
     }
 
@@ -138,7 +103,6 @@
       margin: 4px;
       font-size: 14px;
       color: var(--muted);
-<<<<<<< HEAD
       transition: transform 0.2s, background 0.2s;
     }
 
@@ -168,11 +132,7 @@
       left: 0;
       color: var(--accent);
       font-weight: bold;
-=======
-      transition: transform 0.2s ease;
->>>>>>> refs/remotes/origin/main
     }
-    .users span:hover { transform: scale(1.05); }
 
     .roles div {
       background: rgba(255,255,255,0.05);
@@ -180,18 +140,14 @@
       margin: 8px 0;
       padding: 10px;
       border-radius: 6px;
-      transition: transform 0.2s ease;
     }
-    .roles div:hover { transform: translateX(5px); }
 
     .post {
       background: rgba(255,255,255,0.03);
       border-radius: 6px;
       padding: 10px;
       margin-top: 10px;
-      transition: transform 0.2s ease;
     }
-    .post:hover { transform: scale(1.02); }
 
     .countdown {
       font-family: monospace;
@@ -199,7 +155,6 @@
       margin-top: 8px;
     }
 
-<<<<<<< HEAD
     footer {
       margin-top: 16px;
       text-align: center;
@@ -207,44 +162,30 @@
       font-size: 14px;
     }
 
-=======
->>>>>>> refs/remotes/origin/main
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
     }
 
     @keyframes slideUp {
-<<<<<<< HEAD
       from { opacity:0; transform: translateY(20px); }
       to   { opacity:1; transform: translateY(0); }
-=======
-      from { opacity:0; transform: translateY(20px);}
-      to { opacity:1; transform: translateY(0);}
->>>>>>> refs/remotes/origin/main
     }
 
     @media (max-width: 600px) {
       header { flex-direction: column; align-items: flex-start; }
       .menu-toggle { display: flex; }
-<<<<<<< HEAD
 
-=======
->>>>>>> refs/remotes/origin/main
       nav {
         flex-direction: column;
         width: 100%;
         max-height: 0;
         overflow: hidden;
       }
-<<<<<<< HEAD
 
       nav.open {
         max-height: 300px;
       }
-=======
-      nav.open { max-height: 500px; } /* Ajusta según cantidad de enlaces */
->>>>>>> refs/remotes/origin/main
     }
   </style>
 </head>
@@ -253,17 +194,9 @@
   <div class="container">
 
     <header>
-<<<<<<< HEAD
       <img src="logo_tentem.png" alt="Logo TenTempieLand">
       <div class="menu-toggle" id="menu-toggle">
         <span></span><span></span><span></span>
-=======
-      <img src="logo_tentem.png" alt="Logo TenTempieLand" onerror="this.style.opacity='0.5'" />
-      <div class="menu-toggle" id="menu-toggle">
-        <span></span>
-        <span></span>
-        <span></span>
->>>>>>> refs/remotes/origin/main
       </div>
       <nav id="nav-menu">
         <a href="#intro">Inicio</a>
@@ -282,7 +215,6 @@
 
     <section id="usuarios" class="users">
       <h2>Usuarios del servidor</h2>
-<<<<<<< HEAD
 
       <a href="https://www.minecraft.net/profile/Jose_ID" target="_blank"><span>Jose_ID</span></a>
       <a href="https://www.minecraft.net/profile/RorStark22" target="_blank"><span>RorStark22</span></a>
@@ -291,18 +223,11 @@
       <a href="https://www.minecraft.net/profile/TorriKarlos10" target="_blank"><span>TorriKarlos10</span></a>
       <a href="https://www.minecraft.net/profile/V1CT0RSawKiller" target="_blank"><span>V1CT0RSawKiller</span></a>
 
-=======
-      <span>En proceso ...</span>
->>>>>>> refs/remotes/origin/main
     </section>
 
     <section id="historia">
       <h2>Historia</h2>
-<<<<<<< HEAD
       <p>Fundado el 27 de agosto de 2022. Nuestra historia está llena de creatividad.</p>
-=======
-      <p>Fundado el 27 de agosto de 2022. Nuestra historia está llena de creatividad y momentos memorables.</p>
->>>>>>> refs/remotes/origin/main
     </section>
 
     <section id="normas">
@@ -310,11 +235,7 @@
       <ul>
         <li>Respeta a todos los jugadores.</li>
         <li>No destruyas ni robes propiedad ajena.</li>
-<<<<<<< HEAD
         <li>No matar sin consentimiento o en evento.</li>
-=======
-        <li>No matar sin consentimiento o contexto de evento.</li>
->>>>>>> refs/remotes/origin/main
         <li>Evita trampas o exploits.</li>
         <li>Sigue el sistema judicial del servidor.</li>
       </ul>
@@ -322,19 +243,11 @@
 
     <section id="roles" class="roles">
       <h2>Roles y Altos Cargos</h2>
-<<<<<<< HEAD
       <div><strong>Presidente:</strong> Dirige el gobierno.</div>
       <div><strong>Vicepresidente:</strong> Apoya al presidente.</div>
       <div><strong>Juez:</strong> Aplica normas.</div>
       <div><strong>Rey:</strong> Figura simbólica con veto.</div>
       <div><strong>Ministros:</strong> Gestión de áreas.</div>
-=======
-      <div><strong>Presidente:</strong> Dirige el gobierno y nombra ministros.</div>
-      <div><strong>Vicepresidente:</strong> Apoya al presidente.</div>
-      <div><strong>Juez:</strong> Aplica normas y dicta sanciones.</div>
-      <div><strong>Rey:</strong> Figura simbólica con veto.</div>
-      <div><strong>Ministros:</strong> Encargados de áreas específicas.</div>
->>>>>>> refs/remotes/origin/main
     </section>
 
     <section id="blog">
@@ -349,26 +262,10 @@
 
   </div>
 
-<<<<<<< HEAD
 <script>
   const toggle = document.getElementById("menu-toggle");
   const menu = document.getElementById("nav-menu");
   toggle.addEventListener("click", () => menu.classList.toggle("open"));
-=======
-  <script>
-    // Menú responsive
-    const toggle = document.getElementById("menu-toggle");
-    const menu = document.getElementById("nav-menu");
-    toggle.addEventListener("click", ()=> menu.classList.toggle("open"));
-
-    // Contador hasta el próximo lunes (Europe/Madrid)
-    function getMadridNow(){
-      try {
-        const s = new Date().toLocaleString("en-US",{timeZone:"Europe/Madrid"});
-        return new Date(s);
-      } catch { return new Date(); }
-    }
->>>>>>> refs/remotes/origin/main
 
   async function loadBlog() {
     const container = document.getElementById("posts");
