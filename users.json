@@ -1,10 +1,5 @@
 [
   {
-    "type": "MC",
-    "name": "Jose_ID",
-    "skin": "https://minotar.net/body/JoseID/160"
-  },
-  {
     "type": "SK",
     "name": "RorStark22",
     "skin": "./skins/RorStark22.png"
@@ -12,21 +7,16 @@
   {
     "type": "MC",
     "name": "SrPiglett10",
-    "skin": ""
-  },
-  {
-    "type": "MC",
-    "name": "TecLeo99",
-    "skin": ""
+    "skin": "./skins/SrPiglett10.png"
   },
   {
     "type": "MC",
     "name": "TorriKarlos10",
-    "skin": ""
+    "skin": "./skins/TorriKarlos10.png"
   },
   {
     "type": "MC",
     "name": "V1CT0RSawKiller",
-    "skin": ""
+    "skin": "./skins/V1CT0RSawKiller.png"
   }
 ]
