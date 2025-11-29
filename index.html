@@ -42,29 +42,20 @@ header{
   justify-content:space-between;
   align-items:center;
   flex-wrap:wrap;
-  transition: all 0.3s ease;
-  overflow:hidden;
 }
-header img{
-  height:60px;
-}
+header img{height:60px}
 
 nav{
   display:flex;
   gap:12px;
   flex-wrap:wrap;
-  transition: max-height 0.4s ease;
 }
 nav a{
   color:var(--muted);
   text-decoration:none;
   font-weight:bold;
-  transition: all 0.3s ease;
 }
-nav a:hover{
-  color:var(--accent);
-  transform: scale(1.05);
-}
+nav a:hover{color:var(--accent)}
 
 .menu-toggle{
   display:none;
@@ -74,7 +65,6 @@ nav a:hover{
 }
 .menu-toggle span{
   width:25px;height:3px;background:var(--muted);
-  transition: all 0.3s ease;
 }
 
 /* SECTIONS */
@@ -83,13 +73,13 @@ section{
   margin-top:16px;
   padding:16px;
   border-radius:var(--radius);
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.6s ease-out;
+  opacity:0;
+  transform:translateY(20px);
+  transition:0.6s ease;
 }
 section.visible{
-  opacity: 1;
-  transform: translateY(0);
+  opacity:1;
+  transform:translateY(0);
 }
 h2{color:var(--accent);margin-bottom:10px}
 
@@ -104,19 +94,12 @@ h2{color:var(--accent);margin-bottom:10px}
   border-radius:8px;
   padding:10px;
   text-align:center;
-  position:relative;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  opacity: 0;
-  animation: floatUser 4s ease-in-out infinite;
+  opacity:0;
+  transform:translateY(20px);
+  transition:0.4s ease;
 }
-.user-card.show{
-  opacity: 1;
-  transform: translateY(0);
-}
-.user-card:hover{transform: scale(1.05)}
+.user-card.show{opacity:1;transform:translateY(0)}
+.user-card:hover{transform:scale(1.05)}
 
 .user-card img{
   width:80px;
@@ -125,66 +108,17 @@ h2{color:var(--accent);margin-bottom:10px}
   margin-bottom:8px;
 }
 
-.user-info{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:4px;
-}
-
-.user-name{
-  font-weight:bold;
-  color:var(--text);
-}
-
 /* BADGES */
 .badge{
-  display:inline-block;
-  margin-top:2px;
+  margin-top:4px;
   padding:3px 8px;
   border-radius:6px;
   font-size:11px;
   font-weight:bold;
-  color:#fff;
+  color:white;
 }
 .badge.MC{background:#4caf50}
-.badge.TL{background:#ff9800}
 .badge.SK{background:#03a9f4}
-
-/* NORMAS */
-#normas ul{
-  list-style:none;
-  margin-left:40px;
-}
-#normas li{
-  position:relative;
-  padding-left:20px;
-  margin:10px 0;
-  color:var(--muted);
-}
-#normas li::before{
-  content:"|";
-  position:absolute;
-  left:0;
-  color:var(--accent);
-  font-weight:bold;
-}
-
-/* ROLES */
-.roles div{
-  background:rgba(255,255,255,0.05);
-  border-left:4px solid var(--accent);
-  padding:10px;
-  margin:8px 0;
-  border-radius:6px;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.5s ease;
-}
-.roles div.show{
-  opacity: 1;
-  transform: translateY(0);
-}
 
 /* BLOG */
 .post{
@@ -192,36 +126,22 @@ h2{color:var(--accent);margin-bottom:10px}
   padding:10px;
   border-radius:6px;
   margin-top:10px;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.5s ease;
+  opacity:0;
+  transform:translateY(20px);
+  transition:0.5s ease;
 }
-.post.show{
-  opacity: 1;
-  transform: translateY(0);
-}
-.countdown{
-  font-family:monospace;
-  color:var(--accent2);
-}
-
-/* FLOAT ANIMATION */
-@keyframes floatUser {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
+.post.show{opacity:1;transform:translateY(0)}
 
 footer{
   margin-top:16px;
   text-align:center;
   color:var(--muted);
-  font-size:14px;
 }
 
 @media(max-width:600px){
   .menu-toggle{display:flex}
-  nav{max-height:0;overflow:hidden;width:100%;flex-direction:column}
-  nav.open{max-height:300px}
+  nav{display:none;flex-direction:column}
+  nav.open{display:flex}
 }
 </style>
 </head>
@@ -237,9 +157,6 @@ footer{
   <nav id="nav-menu">
     <a href="#intro">Inicio</a>
     <a href="#usuarios">Usuarios</a>
-    <a href="#historia">Historia</a>
-    <a href="#normas">Normas</a>
-    <a href="#roles">Roles</a>
     <a href="#blog">Blog</a>
   </nav>
 </header>
@@ -252,38 +169,13 @@ footer{
 <section id="usuarios">
   <h2>Usuarios del servidor</h2>
   <div class="users-grid" id="users"></div>
-  <p style="text-align:center;margin-top:10px;color:var(--accent2);font-weight:bold;">
+  <p style="text-align:center;color:var(--accent2);margin-top:10px">
     Total de jugadores: <span id="total-users">0</span>
   </p>
 </section>
 
-<section id="historia">
-  <h2>Historia</h2>
-  <p>Fundado el 27 de agosto de 2022.</p>
-</section>
-
-<section id="normas">
-  <h2>Normas del servidor</h2>
-  <ul>
-    <li>Respeta a todos.</li>
-    <li>No destruir ni robar.</li>
-    <li>No matar sin motivo.</li>
-    <li>No exploits.</li>
-    <li>Sistema judicial obligatorio.</li>
-  </ul>
-</section>
-
-<section id="roles" class="roles">
-  <h2>Roles y Altos Cargos</h2>
-  <div><strong>Presidente:</strong> Lidera.</div>
-  <div><strong>Vicepresidente:</strong> Apoya.</div>
-  <div><strong>Juez:</strong> Aplica justicia.</div>
-  <div><strong>Rey:</strong> Veto simbólico.</div>
-</section>
-
 <section id="blog">
   <h2>Blog semanal</h2>
-  <div class="countdown" id="countdown">Cargando...</div>
   <div id="posts"></div>
 </section>
 
@@ -293,78 +185,54 @@ footer{
 
 <script>
 /* MENU */
-document.getElementById("menu-toggle")
-.onclick = () => document.getElementById("nav-menu").classList.toggle("open");
+document.getElementById("menu-toggle").onclick =
+() => document.getElementById("nav-menu").classList.toggle("open");
 
-/* SECCIONES APARECEN AL SCROLL */
-const sections = document.querySelectorAll('section');
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if(entry.isIntersecting){
-      entry.target.classList.add('visible');
-      observer.unobserve(entry.target);
+/* APARICIÓN DE SECCIONES */
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add("visible");
+      observer.unobserve(e.target);
     }
   });
-},{threshold: 0.1});
-sections.forEach(section => observer.observe(section));
+},{threshold:0.1});
 
-/* USERS */
+document.querySelectorAll("section").forEach(s=>observer.observe(s));
+
+/* CARGA DE USUARIOS Y SKINS */
 fetch("users.json")
-.then(r => r.json())
-.then(users => {
-  const container = document.getElementById("users");
-
-  container.innerHTML = users.map(user => {
-    const { type, name, skin } = user;
-    let skinUrl;
-
-    // ✅ Si hay skin definida → usarla tal cual
-    if (skin && skin.trim() !== "") {
-      skinUrl = skin;
-    } else {
-      // ✅ Fallback si NO hay skin
-      skinUrl = `https://minotar.net/body/${name}/160`;
-    }
+.then(r=>r.json())
+.then(users=>{
+  const c = document.getElementById("users");
+  c.innerHTML = users.map((u,i)=>{
+    const skinUrl = u.skin && u.skin.trim() !== ""
+      ? u.skin
+      : `https://minotar.net/body/${u.name}/160`;
 
     return `
       <div class="user-card">
         <img src="${skinUrl}"
-             onerror="this.src='https://minotar.net/body/${name}/160'"
-             alt="${name}">
-        <div class="user-info">
-          <span class="user-name">${name}</span>
-          <div class="badge ${type}">${type}</div>
-        </div>
-      </div>
-    `;
+             onerror="this.src='https://minotar.net/body/${u.name}/160'">
+        <strong>${u.name}</strong>
+        <div class="badge ${u.type}">${u.type}</div>
+      </div>`;
   }).join("");
 
-  // Animación de aparición
-  document.querySelectorAll(".user-card").forEach((card, i) => {
-    setTimeout(() => card.classList.add("show"), i * 100);
-  });
+  document.querySelectorAll(".user-card")
+    .forEach((c,i)=>setTimeout(()=>c.classList.add("show"), i*100));
 
-  // Total de jugadores
   document.getElementById("total-users").textContent = users.length;
 });
 
 /* BLOG */
 fetch("blog.json")
-.then(r => r.json())
-.then(d => {
-  const postsContainer = document.getElementById("posts");
-  postsContainer.innerHTML = d.posts.map(p => `<div class="post">${p}</div>`).join("");
-
-  const posts = document.querySelectorAll('.post');
-  posts.forEach((post, index) => {
-    setTimeout(() => post.classList.add('show'), index * 150);
-  });
-});
-
-/* ANIMACIÓN SUAVE PARA ROLES */
-const roleDivs = document.querySelectorAll('.roles div');
-roleDivs.forEach((div, index) => {
-  setTimeout(() => div.classList.add('show'), index * 150);
+.then(r=>r.json())
+.then(d=>{
+  const p = document.getElementById("posts");
+  p.innerHTML = d.posts.map(t=>`<div class="post">${t}</div>`).join("");
+  document.querySelectorAll(".post")
+    .forEach((e,i)=>setTimeout(()=>e.classList.add("show"),i*150));
 });
 </script>
 
